@@ -11,17 +11,17 @@ const bcryptjs = require("bcryptjs");
 router.post("/signup", async (req, res, next) => {
 
     const { username, email, password } = req.body
-
+    
     if (!username || !email || !password ) {
         res.status(400).json({ errorMessage: "Es necesario rellenar todos los campos." })
         return;
     }
-
-    if (username.length < 6) {
+    
+    if (username.length < 3) {
         res.status(400).json({ errorMessage: "El usuario debe tener al menos 6 caracteres." })
         return;
     }
-
+    
     // ! incluir la configuración de la complejidad de la contraseña (ej: 8 cara, 1 mayus, etc)
     let regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/
     if (!regex.test(password)) {
@@ -49,7 +49,7 @@ router.post("/signup", async (req, res, next) => {
         res.json("El usuario ha sido creado.")
 
     } catch (error) {
-        next(error)
+        console.log(error)
     }
 })
 
