@@ -1,7 +1,11 @@
 const router = require("express").Router();
 const UserModel = require("../models/User.model.js")
+const isAuthenticated = require("../middlewares/isAuthenticated.js");
 
+/* Paquetes */
+const jwt = require("jsonwebtoken")
 const bcryptjs = require("bcryptjs");
+
 
 // ! POST "/api/auth/signup"
 router.post("/signup", async (req, res, next) => {
@@ -74,22 +78,46 @@ router.post("/login", async (req, res, next) => {
             return;
         }
 
+        //******************************************************************
+
+        //! Paso 1
+        // Creamos el objeto payload para comenzar a interactuar con el token del usuario.
+
+        const payload = {
+            _id: foundUser._id,
+            username: foundUser.username,
+            email: foundUser.email
+            // No guardaremos la contraseña como recomendación para evitar un uso malicioso del cifrado.
+        }
+
+        //! Paso 2
+        // Nos ponemos en contacto con el paquete JWT.
+        const authToken = jwt.sign(
+            payload, // Le pasamos nuestro payload (los datos del usuario)
+            process.env.TOKEN_SECRET, // Clave secreta del archivo .env
+            { algorithm: "HS256", expiresIn: "24h" } // La información del header en forma de objeto (el algoritmo y cada cuanto expira la "sesión").
+
+        )
+
+        // Le enviamos el token al usuario.
+        res.json( { authToken: authToken } )
+
+        //******************************************************************
+
     } catch (error) {
         next(error)
     }
 })
 
 // ! GET "/api/auth/verify"
-router.post("/verify", async (req, res, next) => {
+router.get("/verify", isAuthenticated, (req, res, next) => {
 
+    //! 1. Check para ver si el token es válido.
+    res.json(req.payload) //TODO ---> Esto es como nuestro req.session.user ¡SÚPER IMPORTANTE! Ya que de aquí, sacamos toda información del usuario logueado.
+    console.log("Todo bien con el middleware.");
+    res.json("Todo bien con el middleware.")
+    //! 2. Envía al frontend la información del usuario del token.
 
-
-
-    try {
-
-    } catch (error) {
-
-    }
 })
 
 
