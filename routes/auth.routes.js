@@ -54,7 +54,7 @@ router.post("/signup", async (req, res, next) => {
         console.log("El usuario ha sido creado.");
 
     } catch (error) {
-        console.log(error)
+        next(error)
     }
 })
 
