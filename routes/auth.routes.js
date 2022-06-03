@@ -14,11 +14,13 @@ router.post("/signup", async (req, res, next) => {
     
     if (!username || !email || !password ) {
         res.status(400).json({ errorMessage: "Es necesario rellenar todos los campos." })
+        console.log("Es necesario rellenar todos los campos.");
         return;
     }
     
     if (username.length < 3) {
-        res.status(400).json({ errorMessage: "El usuario debe tener al menos 6 caracteres." })
+        res.status(400).json({ errorMessage: "El usuario debe tener al menos 3 caracteres." })
+        console.log("El usuario debe tener al menos 3 caracteres.");
         return;
     }
     
@@ -26,6 +28,7 @@ router.post("/signup", async (req, res, next) => {
     let regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/
     if (!regex.test(password)) {
         res.status(400).json({ errorMessage: "La contraseña no cumple los requisitos mínimos. Debe tener 8 caracteres, una mayúscula, un número y un carácter especial." })
+        console.log("La contraseña no cumple los requisitos mínimos. Debe tener 8 caracteres, una mayúscula, un número y un carácter especial.");
         return;
     }
     
@@ -34,6 +37,7 @@ router.post("/signup", async (req, res, next) => {
         const foundUser = await UserModel.findOne({ $or: [{username}, {email}] })
         if (foundUser !== null) {
             res.status(400).json({ errorMessage: "El usuario ya existe." })
+            console.log("El usuario ya existe.");
             return;
         }
 
@@ -47,6 +51,7 @@ router.post("/signup", async (req, res, next) => {
         })
 
         res.json("El usuario ha sido creado.")
+        console.log("El usuario ha sido creado.");
 
     } catch (error) {
         console.log(error)
@@ -60,6 +65,7 @@ router.post("/login", async (req, res, next) => {
 
     if (!username || !password ) {
         res.status(400).json({ errorMessage: "Es necesario rellenar todos los campos." })
+        console.log("Es necesario rellenar todos los campos.");
         return;
     }
 
@@ -68,6 +74,7 @@ router.post("/login", async (req, res, next) => {
         const foundUser = await UserModel.findOne({username})
         if (foundUser === null) {
             res.status(400).json({ errorMessage: "El usuario no existe." })
+            console.log("El usuario no existe.");
             return;
         }
 
@@ -75,6 +82,7 @@ router.post("/login", async (req, res, next) => {
 
         if (!passwordMatch) {
             res.status(401).json( { errorMessage: "El password no es correcto." })
+            console.log("El password no es correcto.");
             return;
         }
 
