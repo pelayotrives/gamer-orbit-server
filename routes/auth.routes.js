@@ -94,7 +94,7 @@ router.post("/login", async (req, res, next) => {
         // Nos ponemos en contacto con el paquete JWT.
         const authToken = jwt.sign(
             payload, // Le pasamos nuestro payload (los datos del usuario)
-            process.env.TOKEN_SECRET, // Clave secreta del archivo .env
+            process.env.SECRET_TOKEN, // Clave secreta del archivo .env
             { algorithm: "HS256", expiresIn: "24h" } // La información del header en forma de objeto (el algoritmo y cada cuanto expira la "sesión").
 
         )
