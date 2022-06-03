@@ -13,13 +13,35 @@ const userSchema = new Schema(
       unique: true,
       required: true
     },
-    avatar: {
+    avatar: { 
       type: String,
+    },
+    city: {
+      type: String,
+    },
+    country: {
+      type: String,
+    },
+    address: {
+      type: String,
+    },
+    aboutme: {
+      type: String,
+    },
+    sex: {
+      type: String,
+    },
+    birthdate: {
+      type: Date,
     },
     password: {
       type: String,
       required: true
-    }
+    },
+    collections: {
+      type: Schema.Types.ObjectId,
+      ref: "game"
+    },
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
