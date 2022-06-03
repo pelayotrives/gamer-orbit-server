@@ -1,5 +1,4 @@
 const { expressjwt } = require("express-jwt");
-const { token } = require("morgan");
 
 const isAuthenticated = expressjwt({
     secret: process.env.SECRET_TOKEN,
@@ -9,7 +8,7 @@ const isAuthenticated = expressjwt({
 
         // Si no existiese token o hubiera algún problema...
         //! En req.headers es donde se envía el token, ya que req.body es algo más inseguro para este tipo de información.
-        if (req.headers === null || req.headers.authorization === null) {
+        if (req.headers === undefined || req.headers.authorization === undefined) {
             console.log("No existe el token.");
             return null;
         }

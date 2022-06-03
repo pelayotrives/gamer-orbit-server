@@ -16,6 +16,10 @@ module.exports = (app) => {
       console.log(err.status, "Credenciales no han podido ser validadas.")
     }
 
+    if (err.status === 401) {
+      res.status(401).json({errorMessage: "Las credenciales no se han podido validar"})
+    }
+
     // only render if the error ocurred before sending the response
     if (!res.headersSent) {
       res
