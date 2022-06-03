@@ -5,16 +5,9 @@ module.exports = (app) => {
   });
 
   app.use((err, req, res, next) => {
-    // whenever you call next(error), this middleware will handle the error
+    // whenever you call next(err), this middleware will handle the error
     // always logs the error
-    console.error("ERROR", req.method, req.path, error);
-
-    //! Handler para Token Auth
-
-    if (err.status === 401) {
-      res.status(401).json({errorMessage: "Credenciales no han podido ser validadas."})
-      console.log(err.status, "Credenciales no han podido ser validadas.")
-    }
+    console.error("ERROR", req.method, req.path, err);
 
     if (err.status === 401) {
       res.status(401).json({errorMessage: "Las credenciales no se han podido validar"})
