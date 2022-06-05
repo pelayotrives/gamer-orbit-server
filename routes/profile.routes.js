@@ -4,7 +4,7 @@ const UserModel = require("../models/User.model.js");
 
 // ! GET "api/profile"
 
-router.get("/profile", isAuthenticated, async (req, res, next) => {
+router.get("/", isAuthenticated, async (req, res, next) => {
   const { _id } = req.payload;
 
   try {
@@ -17,7 +17,7 @@ router.get("/profile", isAuthenticated, async (req, res, next) => {
 
 // ! GET "api/profile/edit"
 
-router.get("/profile/edit", isAuthenticated, async (req, res, next) => {
+router.get("/edit", isAuthenticated, async (req, res, next) => {
   const { _id } = req.payload;
 
   try {
@@ -30,7 +30,7 @@ router.get("/profile/edit", isAuthenticated, async (req, res, next) => {
 
 // ! PATCH "api/profile/edit"
 
-router.patch("/profile/edit", isAuthenticated, async (req, res, next) => {
+router.patch("/edit", isAuthenticated, async (req, res, next) => {
   const { _id } = req.payload;
   const {
     avatar,
@@ -61,7 +61,7 @@ router.patch("/profile/edit", isAuthenticated, async (req, res, next) => {
 });
 
 // ! DELETE "api/profile/delete"
-router.delete("/profile/delete", async (req, res, next) => {
+router.delete("/delete", async (req, res, next) => {
   const { _id } = req.payload;
 
   try {

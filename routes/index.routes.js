@@ -8,8 +8,10 @@ router.get("/", (req, res, next) => {
 const authRoutes = require("./auth.routes.js")
 router.use("/auth", authRoutes)
 
-// You put the next routes here 👇
 const gamesRoutes = require("./games.routes.js")
 router.use("/videogames", gamesRoutes)
+
+const profileRoutes = require("./profile.routes.js")
+router.use("/profile", profileRoutes)
 
 module.exports = router;
