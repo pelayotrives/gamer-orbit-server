@@ -13,7 +13,7 @@ router.get("/", async (req, res, next) => {
     const response = await axios.get(allGames);
     res.json(response.data);
   } catch (error) {
-    next(error);
+    navigate(error);
   }
 });
 

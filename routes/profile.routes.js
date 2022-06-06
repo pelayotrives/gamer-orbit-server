@@ -15,9 +15,9 @@ router.get("/", isAuthenticated, async (req, res, next) => {
   }
 });
 
-// ! GET "api/profile/edit"
+// ! GET "api/profile/:id/edit"
 
-router.get("/edit", isAuthenticated, async (req, res, next) => {
+router.get("/:id/edit", isAuthenticated, async (req, res, next) => {
   const { _id } = req.payload;
 
   try {
@@ -28,9 +28,9 @@ router.get("/edit", isAuthenticated, async (req, res, next) => {
   }
 });
 
-// ! PATCH "api/profile/edit"
+// ! PATCH "api/profile/:id/edit"
 
-router.patch("/edit", isAuthenticated, async (req, res, next) => {
+router.patch("/:id/edit", isAuthenticated, async (req, res, next) => {
   const { _id } = req.payload;
   const {
     avatar,
