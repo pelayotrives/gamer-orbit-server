@@ -34,8 +34,8 @@ router.get("/:id/details", async (req, res, next) => {
   }
 });
 
-// ! GET "api/videogames/:id/details"
-router.get("/:id/details", async (req, res, next) => {
+// ! GET "api/videogames/:id/trailers" ---> RUTA DE BACK DISTINTA PERO LA MISMA EN FRONT.
+router.get("/:id/trailers", async (req, res, next) => {
 
     const {id} = req.params
     console.log(id);
