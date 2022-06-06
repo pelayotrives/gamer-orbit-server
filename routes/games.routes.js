@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const GameModel = require("../models/Game.model");
 const axios = require("axios");
-let page = 1;
+let page = 5;
 
 //! Const de llamada
 const root = "https://api.rawg.io/api/"; //* ---> Constante base
@@ -33,6 +33,22 @@ router.get("/:id/details", async (req, res, next) => {
     next(error);
   }
 });
+
+// ! GET "api/videogames/:id/details"
+router.get("/:id/details", async (req, res, next) => {
+
+    const {id} = req.params
+    console.log(id);
+    const gamesTrailers = `https://api.rawg.io/api/games/${id}/movies?key=${process.env.API_KEY}`;
+  
+    try {
+      const response = await axios.get(gamesTrailers);
+      res.json(response.data);
+      console.log(response.data)
+    } catch (error) {
+      next(error);
+    }
+  });
 
 module.exports = router;
 

@@ -28,7 +28,7 @@ const userSchema = new Schema(
     aboutme: {
       type: String,
     },
-    sex: {
+    genre: {
       type: String,
     },
     birthdate: {

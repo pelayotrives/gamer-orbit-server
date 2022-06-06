@@ -38,7 +38,7 @@ router.patch("/:id/edit", isAuthenticated, async (req, res, next) => {
     country,
     address,
     aboutme,
-    sex,
+    genre,
     birthdate,
     collections,
   } = req.body;
@@ -50,7 +50,7 @@ router.patch("/:id/edit", isAuthenticated, async (req, res, next) => {
       country,
       address,
       aboutme,
-      sex,
+      genre,
       birthdate,
       collections,
     });
