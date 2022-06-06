@@ -27,7 +27,7 @@ const gameSchema = new Schema(
         },
         state: {
           type: String,
-          enum: ["isPlaying","isWished","isFinished"]
+          enum: ["isPlaying","isOwned","isWished","isFinished"]
         },
     },
     {
