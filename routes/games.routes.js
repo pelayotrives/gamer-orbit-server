@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const GameModel = require("../models/Game.model");
 const axios = require("axios");
-let page = 5;
+let page = 1;
 
 //! Const de llamada
 const root = "https://api.rawg.io/api/"; //* ---> Constante base
