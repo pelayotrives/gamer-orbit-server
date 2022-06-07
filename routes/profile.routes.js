@@ -72,6 +72,23 @@ router.delete("/delete", async (req, res, next) => {
   }
 });
 
+//!  DELETE "/api/profile/:id/delete" => Para borrar los "To Do". No usamos POST. Usamos un método DELETE.
+// router.delete("/:id/delete", async (req, res, next) => { ----> Al poner router.delete(), no haría falta establecer que la ruta es "/:id/delete", solo "/:id/".
+router.delete("/:id", isAuthenticated, async (req, res, next) => {
+
+  // Con esto tendría el ID del perfil que estoy buscando.
+  const { _id } = req.payload;
+  
+  try {
+      await UserModel.findByIdAndDelete(_id) // No hace falta la asignación a una variable response, ya que estamos borrando simplemente.
+      res.json("Perfil eliminado correctamente."); // Siempre, siempre, hay que dar una respuesta.
+  }
+  catch (error) {
+      next(error)
+  }
+})
+
+
 //! PATCH "api/profile/:gamesId/collections"
 // router.patch("/:gamesId/collections", isAuthenticated, async (req, res, next) => {
 //     const {_id} = req.payload;

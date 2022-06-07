@@ -2,6 +2,7 @@ const router = require("express").Router();
 const GameModel = require("../models/Game.model");
 const axios = require("axios");
 const isAuthenticated = require("../middlewares/isAuthenticated");
+const CommentModel = require("../models/Comment.model");
 let page = 1;
 
 //! Const de llamada
@@ -74,6 +75,46 @@ router.post("/:id/collections", isAuthenticated, async (req, res, next) => {
   }
 });
 
+//! RUTAS DE COMMENTS
+  // GET "api/videogames/:id/comments"
+  router.get("/:commentId/comments", isAuthenticated, async (req, res, next) => {
+    
+    const {commentId} = req.params
+
+
+    try {
+  
+        console.log("Comentariooo")
+        const response = await CommentModel.findById(commentId)
+        res.json(response)
+      
+    } catch (error) {
+      next(error);
+    }
+  });
+
+
+  // POST "api/videogames/:id/comments"
+  router.post("/:commentId/comments", isAuthenticated, async (req, ser, next) =>{
+    const userId = req.payload._id
+    const {videogame, username, comment, timestamps} = req.body
+
+    try {
+
+      console.log("Post de comment")
+
+      await CommentModel.create({
+        userId,
+        videogame,
+        username,
+        comment,
+        timestamps
+      })
+      res.json("Comentario añadido")
+    } catch(error) {
+      next(error)
+    }
+  })
 
 module.exports = router;
 
