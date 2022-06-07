@@ -2,6 +2,9 @@ const router = require("express").Router();
 const isAuthenticated = require("../middlewares/isAuthenticated.js");
 const UserModel = require("../models/User.model.js");
 
+// -------> Todo nuestro CRUD
+// El isAuthenticated lo usamos para poder tener acceso a req.payload, por eso lo usamos como Middleware, para obtener el id del usuario.
+
 // ! GET "api/profile"
 
 router.get("/", isAuthenticated, async (req, res, next) => {
