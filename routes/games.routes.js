@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const GameModel = require("../models/Game.model");
 const axios = require("axios");
+const isAuthenticated = require("../middlewares/isAuthenticated");
 let page = 1;
 
 //! Const de llamada
@@ -49,6 +50,30 @@ router.get("/:id/trailers", async (req, res, next) => {
       next(error);
     }
   });
+
+  //! RUTA DE COLECCIONES
+  // POST "api/videogames/:id/collections"
+router.post("/:id/collections", isAuthenticated, async (req, res, next) => {
+  const userId = req.payload._id
+  const {gameApiId, title, status} = req.body
+    
+  try {
+
+      console.log("Me cago!")
+    
+    await GameModel.create({
+      userId,
+      gameApiId,
+      title,
+      state: status
+    })
+      res.json("Se ha actualizado el estado correctamente");
+    
+  } catch (error) {
+    next(error);
+  }
+});
+
 
 module.exports = router;
 
