@@ -95,8 +95,9 @@ router.post("/:id/collections", isAuthenticated, async (req, res, next) => {
 
 
   // POST "api/videogames/:id/comments"
-  router.post("/:commentId/comments", isAuthenticated, async (req, ser, next) =>{
+  router.post("/:id/comments", isAuthenticated, async (req, res, next) =>{
     const userId = req.payload._id
+    const {id} = req.params
     const {videogame, username, comment, timestamps} = req.body
 
     try {
@@ -104,9 +105,8 @@ router.post("/:id/collections", isAuthenticated, async (req, res, next) => {
       console.log("Post de comment")
 
       await CommentModel.create({
-        userId,
-        videogame,
-        username,
+        videogame: id,
+        username: userId,
         comment,
         timestamps
       })
