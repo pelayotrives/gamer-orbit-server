@@ -79,18 +79,4 @@ router.delete("/:id", isAuthenticated, async (req, res, next) => {
   }
 })
 
-
-//! PATCH "api/profile/:gamesId/collections"
-// router.patch("/:gamesId/collections", isAuthenticated, async (req, res, next) => {
-//     const {_id} = req.payload;
-//     const {gamesId} = req.params;
-  
-//     try {
-//       await UserModel.findByIdAndUpdate(_id, {$addToSet: {collections: gamesId}})
-//       res.json("Videojuego ha sido añadido a tus Colecciones")
-//     } catch (error) {
-//       next(error)
-//     }
-//   })
-
 module.exports = router;
