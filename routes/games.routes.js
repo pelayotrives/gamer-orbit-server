@@ -16,7 +16,7 @@ router.get("/", async (req, res, next) => {
     const response = await axios.get(allGames);
     res.json(response.data);
   } catch (error) {
-    navigate(error);
+    next(error);
   }
 });
 
