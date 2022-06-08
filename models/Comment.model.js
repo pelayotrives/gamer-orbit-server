@@ -5,7 +5,7 @@ const commentSchema = new Schema(
         videogame: {
             type: String,
         },        
-        username: {
+        usernameId: {
             type: Schema.Types.ObjectId,
             ref: "user",
         },

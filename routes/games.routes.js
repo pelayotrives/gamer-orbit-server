@@ -79,13 +79,13 @@ router.post("/:id/collections", isAuthenticated, async (req, res, next) => {
   // GET "api/videogames/:id/comments"
   router.get("/:id/comments", isAuthenticated, async (req, res, next) => {
     
-    const {videogame} = req.body
+    const {id} = req.params
 
 
     try {
   
         console.log("videogame")
-        const response = await CommentModel.find(videogame)
+        const response = await CommentModel.find({videogame: id}).populate("usernameId", "username")
         res.json(response)
       
     } catch (error) {
