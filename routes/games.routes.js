@@ -118,5 +118,34 @@ router.post("/:id/collections", isAuthenticated, async (req, res, next) => {
     }
   })
 
+  //! PATCH "api/videogames/:id/collections"
+router.patch("/:id/collections", isAuthenticated, async (req, res, next) => {
+  const {id} = req.params;
+  const {state} = req.body;
+
+  try {
+
+    const response = await GameModel.findByIdAndUpdate(id, {
+      state
+    });
+    res.json(response);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//! GET "api/videogames/:id/collections"
+router.get("/:id/collections", isAuthenticated, async (req, res, next) => {
+  const {id} = req.params;
+
+  try {
+    const response = await GameModel.findById(id);
+    res.json(response.data);
+    console.log(response.data)
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
 
