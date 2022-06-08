@@ -79,13 +79,14 @@ router.post("/:id/collections", isAuthenticated, async (req, res, next) => {
   // GET "api/videogames/:id/comments"
   router.get("/:id/comments", isAuthenticated, async (req, res, next) => {
     
-    const {videogame} = req.body
+    const {id} = req.params
 
 
     try {
   
         console.log("videogame")
-        const response = await CommentModel.find(videogame)
+        //! Aquí buscamos en el modelo mediante el id de cada juego (el numérico tipo 1456) y hacemos un objeto con populate a partir del _id del usuario para obtener el username.
+        const response = await CommentModel.find({videogame: id}).populate("usernameId")
         res.json(response)
       
     } catch (error) {
@@ -98,7 +99,7 @@ router.post("/:id/collections", isAuthenticated, async (req, res, next) => {
   router.post("/:id/comments", isAuthenticated, async (req, res, next) =>{
     const userId = req.payload._id
     const {id} = req.params
-    const {videogame, username, comment, timestamps} = req.body
+    const {videogame, usernameId, comment, timestamps} = req.body
 
     try {
 
@@ -106,7 +107,7 @@ router.post("/:id/collections", isAuthenticated, async (req, res, next) => {
 
       await CommentModel.create({
         videogame: id,
-        username: userId,
+        usernameId: userId,
         comment,
         // rating,
         timestamps
