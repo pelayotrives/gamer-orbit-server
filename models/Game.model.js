@@ -2,32 +2,21 @@ const { Schema, model } = require("mongoose")
 
 const gameSchema = new Schema(
     {
+        userId: {
+          type: Schema.Types.ObjectId,
+          ref: "user",
+        },
+        gameApiId: {
+          type: String,
+        },
         title: {
           type: String,
           unique: true,
-          required: true
-        },
-        cover: {
-          type: String,
-        },
-        genre: {
-          type: String,
-          required: true
-        },
-        platform: {
-          type: String,
-          required: true
-        },
-        saga: {
-          type: String,
-        },
-        company: {
-          type: Schema.Types.ObjectId,
-          ref: "company"  
+          required: true,
         },
         state: {
           type: String,
-          enum: ["isPlayed","isWished","isFinished"]
+          enum: ["isPlaying","isOwned","isWished","isFinished"]
         },
     },
     {
