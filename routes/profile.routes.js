@@ -80,5 +80,4 @@ router.delete("/:id", isAuthenticated, async (req, res, next) => {
   }
 })
 
-
 module.exports = router;
