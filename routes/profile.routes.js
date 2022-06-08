@@ -63,23 +63,11 @@ router.patch("/:id/edit", isAuthenticated, async (req, res, next) => {
   }
 });
 
-// ! DELETE "api/profile/delete"
-router.delete("/delete", async (req, res, next) => {
-  const { _id } = req.payload;
-
-  try {
-    await UserModel.findByIdAndDelete(_id);
-    res.json("Perfil eliminado correctamente.");
-  } catch (error) {
-    next(error);
-  }
-});
-
-//!  DELETE "/api/profile/:id/delete" => Para borrar los "To Do". No usamos POST. Usamos un método DELETE.
+//!  DELETE "/api/profile/:id/delete" => Para borrar los perfiles. No usamos POST. Usamos un método DELETE.
 // router.delete("/:id/delete", async (req, res, next) => { ----> Al poner router.delete(), no haría falta establecer que la ruta es "/:id/delete", solo "/:id/".
 router.delete("/:id", isAuthenticated, async (req, res, next) => {
 
-  // Con esto tendría el ID del perfil que estoy buscando.
+  // Con esto tendría el ID del perfil que estoy buscando. Viene del payload, por lo que no necesitamos params.
   const { _id } = req.payload;
   
   try {
