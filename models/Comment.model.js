@@ -3,8 +3,7 @@ const { Schema, model } = require("mongoose");
 const commentSchema = new Schema(
     {
         videogame: {
-            type: Schema.Types.ObjectId,
-            ref: "game",
+            type: String,
         },        
         username: {
             type: Schema.Types.ObjectId,
@@ -13,7 +12,10 @@ const commentSchema = new Schema(
         comment: {
             type: String,
             required: true,
-        }
+        },
+        rating: {
+            type: Number,
+        },
     },
     {
         timestamps: true,

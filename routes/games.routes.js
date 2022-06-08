@@ -30,7 +30,7 @@ router.get("/:id/details", async (req, res, next) => {
   try {
     const response = await axios.get(gamesDetails);
     res.json(response.data);
-    console.log(response.data)
+    // console.log(response.data)
   } catch (error) {
     next(error);
   }
@@ -46,7 +46,7 @@ router.get("/:id/trailers", async (req, res, next) => {
     try {
       const response = await axios.get(gamesTrailers);
       res.json(response.data);
-      console.log(response.data)
+      // console.log(response.data)
     } catch (error) {
       next(error);
     }
@@ -77,15 +77,15 @@ router.post("/:id/collections", isAuthenticated, async (req, res, next) => {
 
 //! RUTAS DE COMMENTS
   // GET "api/videogames/:id/comments"
-  router.get("/:commentId/comments", isAuthenticated, async (req, res, next) => {
+  router.get("/:id/comments", isAuthenticated, async (req, res, next) => {
     
-    const {commentId} = req.params
+    const {videogame} = req.body
 
 
     try {
   
-        console.log("Comentariooo")
-        const response = await CommentModel.findById(commentId)
+        console.log("videogame")
+        const response = await CommentModel.find(videogame)
         res.json(response)
       
     } catch (error) {
@@ -102,12 +102,13 @@ router.post("/:id/collections", isAuthenticated, async (req, res, next) => {
 
     try {
 
-      console.log("Post de comment")
+      console.log("Post de commeeeeeent")
 
       await CommentModel.create({
         videogame: id,
         username: userId,
         comment,
+        // rating,
         timestamps
       })
       res.json("Comentario añadido")
