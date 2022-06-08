@@ -3,17 +3,19 @@ const { Schema, model } = require("mongoose");
 const commentSchema = new Schema(
     {
         videogame: {
-            type: Schema.Types.ObjectId,
-            ref: "games",
+            type: String,
         },        
-        username: {
+        usernameId: {
             type: Schema.Types.ObjectId,
             ref: "user",
         },
         comment: {
             type: String,
             required: true,
-        }
+        },
+        rating: {
+            type: Number,
+        },
     },
     {
         timestamps: true,
