@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const isAuthenticated = require("../middlewares/isAuthenticated.js");
+const GameModel = require("../models/Game.model.js");
 const UserModel = require("../models/User.model.js");
 
 // -------> Todo nuestro CRUD

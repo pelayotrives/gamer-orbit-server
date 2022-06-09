@@ -118,6 +118,9 @@ router.post("/:id/collections", isAuthenticated, async (req, res, next) => {
     }
   })
 
+<<<<<<< HEAD
+  //! PATCH "api/videogames/:id/collections"
+=======
 //! GET "api/videogames/:id/collections"
 router.get("/:id/collections", isAuthenticated, async (req, res, next) => {
   
@@ -135,6 +138,7 @@ router.get("/:id/collections", isAuthenticated, async (req, res, next) => {
 });
 
 //! PATCH "api/videogames/:id/collections"
+>>>>>>> 8b48046b2b5bac7103d24ad91458fee5427c1404
 router.patch("/:id/collections", isAuthenticated, async (req, res, next) => {
   const {id} = req.params;
   const {state} = req.body;
@@ -150,5 +154,21 @@ router.patch("/:id/collections", isAuthenticated, async (req, res, next) => {
   }
 });
 
+<<<<<<< HEAD
+//! GET "api/videogames/:id/collections"
+router.get("/:id/collections", isAuthenticated, async (req, res, next) => {
+  const {id} = req.params;
+
+  try {
+    const response = await GameModel.findById(id);
+    res.json(response.data);
+    console.log(response.data)
+  } catch (error) {
+    next(error);
+  }
+});
+
+=======
+>>>>>>> 8b48046b2b5bac7103d24ad91458fee5427c1404
 module.exports = router;
 
