@@ -13,7 +13,7 @@ router.post("/signup", async (req, res, next) => {
   if (!username || !email || !password) {
     res
       .status(400)
-      .json({ errorMessage: "Warning: All the field are required." });
+      .json({ errorMessage: "Warning: All the fields are required." });
     console.log("Es necesario rellenar todos los campos.");
     return;
   }
@@ -21,7 +21,7 @@ router.post("/signup", async (req, res, next) => {
   if (username.length < 3) {
     res
       .status(400)
-      .json({ errorMessage: "El usuario debe tener al menos 3 caracteres." });
+      .json({ errorMessage: "The user has to be not less than 3 characters." });
     console.log("El usuario debe tener al menos 3 caracteres.");
     return;
   }
@@ -33,7 +33,7 @@ router.post("/signup", async (req, res, next) => {
       .status(400)
       .json({
         errorMessage:
-          "La contraseña no cumple los requisitos mínimos. Debe tener 8 caracteres, una mayúscula, un número y un carácter especial.",
+          "Password type incorrect. Must to be 8 characters, an uppercase, a number and a special character.",
       });
     console.log(
       "La contraseña no cumple los requisitos mínimos. Debe tener 8 caracteres, una mayúscula, un número y un carácter especial."
@@ -46,7 +46,7 @@ router.post("/signup", async (req, res, next) => {
       $or: [{ username }, { email }],
     });
     if (foundUser !== null) {
-      res.status(400).json({ errorMessage: "El usuario ya existe." });
+      res.status(400).json({ errorMessage: "User exists." });
       console.log("El usuario ya existe.");
       return;
     }
@@ -60,7 +60,7 @@ router.post("/signup", async (req, res, next) => {
       password: hashPassword,
     });
 
-    res.json("El usuario ha sido creado.");
+    res.json("The user has been created.");
     console.log("El usuario ha sido creado.");
   } catch (error) {
     next(error);
@@ -74,7 +74,7 @@ router.post("/login", async (req, res, next) => {
   if (!username || !password) {
     res
       .status(400)
-      .json({ errorMessage: "Es necesario rellenar todos los campos." });
+      .json({ errorMessage: "All the fields are required." });
     console.log("Es necesario rellenar todos los campos.");
     return;
   }
@@ -82,7 +82,7 @@ router.post("/login", async (req, res, next) => {
   try {
     const foundUser = await UserModel.findOne({ username });
     if (foundUser === null) {
-      res.status(400).json({ errorMessage: "El usuario no existe." });
+      res.status(400).json({ errorMessage: "The user doesn't exits." });
       console.log("El usuario no existe.");
       return;
     }
@@ -90,7 +90,7 @@ router.post("/login", async (req, res, next) => {
     const passwordMatch = await bcryptjs.compare(password, foundUser.password);
 
     if (!passwordMatch) {
-      res.status(401).json({ errorMessage: "El password no es correcto." });
+      res.status(401).json({ errorMessage: "Wrong password." });
       console.log("El password no es correcto.");
       return;
     }
