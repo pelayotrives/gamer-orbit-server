@@ -13,7 +13,7 @@ router.post("/signup", async (req, res, next) => {
   if (!username || !email || !password) {
     res
       .status(400)
-      .json({ errorMessage: "Es necesario rellenar todos los campos." });
+      .json({ errorMessage: "Warning: All the field are required." });
     console.log("Es necesario rellenar todos los campos.");
     return;
   }

@@ -52,7 +52,7 @@ router.get("/:id/trailers", async (req, res, next) => {
     }
   });
 
-  //! RUTA DE COLECCIONES
+//   //! RUTA DE COLECCIONES
   // POST "api/videogames/:id/collections"
 router.post("/:id/collections", isAuthenticated, async (req, res, next) => {
   const userId = req.payload._id
@@ -120,12 +120,15 @@ router.post("/:id/collections", isAuthenticated, async (req, res, next) => {
 
 //! GET "api/videogames/:id/collections"
 router.get("/:id/collections", isAuthenticated, async (req, res, next) => {
-  const {id} = req.params;
+  
+  const {userLoggedId} = req.payload._id
 
   try {
-    const response = await GameModel.findById(id);
+    
+    const response = await GameModel.find().sort("title").populate({path: "userId", match: {userLoggedId}});
+    
     res.json(response.data);
-    console.log(response.data)
+    console.log("Ana", response.data)
   } catch (error) {
     next(error);
   }

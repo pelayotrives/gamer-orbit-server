@@ -14,4 +14,7 @@ router.use("/videogames", gamesRoutes)
 const profileRoutes = require("./profile.routes.js")
 router.use("/profile", profileRoutes)
 
+const uploaderRoutes = require("./uploader.routes.js")
+router.use("/uploader", uploaderRoutes)
+
 module.exports = router;

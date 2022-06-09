@@ -11,8 +11,6 @@ const gameSchema = new Schema(
         },
         title: {
           type: String,
-          unique: true,
-          required: true,
         },
         state: {
           type: String,
