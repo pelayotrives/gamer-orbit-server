@@ -28,6 +28,7 @@ router.get("/:id/edit", isAuthenticated, async (req, res, next) => {
     const response = await UserModel.findById(_id);
     res.json(response);
   } catch (error) {
+    console.log(error)
     next(error);
   }
 });
@@ -36,8 +37,8 @@ router.get("/:id/edit", isAuthenticated, async (req, res, next) => {
 
 router.patch("/:id/edit", isAuthenticated, async (req, res, next) => {
   const { _id } = req.payload;
-  const {
-    avatar,
+  const { 
+    image,
     city,
     country,
     address,
@@ -47,19 +48,23 @@ router.patch("/:id/edit", isAuthenticated, async (req, res, next) => {
     collections,
   } = req.body;
 
+console.log(req.payload)
+console.log(req.body)
   try {
-    const response = await UserModel.findByIdAndUpdate(_id, {
-      avatar: image,
-      city,
-      country,
-      address,
-      aboutme,
-      genre,
-      birthdate,
-      collections,
-    });
+   await UserModel.findByIdAndUpdate(_id, req.body )
+    //   avatar: image,
+    //   city,
+    //   country,
+    //   address,
+    //   aboutme,
+    //   genre,
+    //   birthdate,
+    //   collections,
+    // });
+    
     res.json("user updated");
   } catch (error) {
+    console.log(error)
     next(error);
   }
 });
