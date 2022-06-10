@@ -3,6 +3,7 @@ const GameModel = require("../models/Game.model");
 const axios = require("axios");
 const isAuthenticated = require("../middlewares/isAuthenticated");
 const CommentModel = require("../models/Comment.model");
+const UserModel = require("../models/User.model");
 let page = 1;
 
 //! Const de llamada
@@ -118,50 +119,71 @@ router.post("/:id/collections", isAuthenticated, async (req, res, next) => {
     }
   })
 
-//! GET "api/videogames/:id/collections"
-router.get("/:id/collections", isAuthenticated, async (req, res, next) => {
-  
-  const {userLoggedId} = req.payload._id
-
-  try {
-    
-    const response = await GameModel.find().sort("title").populate({path: "userId", match: {userLoggedId}});
-    
-    res.json(response.data);
-    console.log("Ana", response.data)
-  } catch (error) {
-    next(error);
-  }
-});
-
-//! PATCH "api/videogames/:id/collections"
-router.patch("/:id/collections", isAuthenticated, async (req, res, next) => {
-  const {id} = req.params;
-  const {state} = req.body;
-
-  try {
-
-    const response = await GameModel.findByIdAndUpdate(id, {
-      state
-    });
-    res.json(response);
-  } catch (error) {
-    next(error);
-  }
-});
+// *****************************************************************
 
 // //! GET "api/videogames/:id/collections"
+// router.get("/:id/collections", isAuthenticated, async (req, res, next) => {
+  
+//   const {userLoggedId} = req.payload._id
+
+//   try {
+    
+//     const response = await GameModel.find().sort("title").populate({path: "userId", match: {userLoggedId}});
+    
+//     res.json(response.data);
+//     console.log("Ana", response.data)
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
+// //! PATCH "api/videogames/:id/collections"
+// router.patch("/:id/collections", isAuthenticated, async (req, res, next) => {
+//   const {id} = req.params;
+//   const {state} = req.body;
+
+//   try {
+
+//     const response = await GameModel.findByIdAndUpdate(id, {
+//       state
+//     });
+//     res.json(response);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
+//! GET "api/videogames/:id/collections"
 // router.get("/:id/collections", isAuthenticated, async (req, res, next) => {
 //   const {id} = req.params;
 
 //   try {
 //     const response = await GameModel.findById(id);
-//     res.json(response.data);
-//     console.log(response.data)
+//     res.json(response);
+//     console.log(response)
 //   } catch (error) {
 //     next(error);
 //   }
 // });
+
+// ! POST "api/videogames/:id/collections"
+router.post("/:id/collections", isAuthenticated, async (req, res, next) => {
+    const {_id} = req.payload;
+    const {id} = req.params
+    const {userId, gameApiId, title, state} = req.body
+
+    try {
+      await GameModel.findByIdAndUpdate(id, {
+        userId: _id,
+        gameApiId: id,
+        title,
+        state
+      });
+      res.json("Videojuego ha sido añadido a tus Colecciones")
+    } catch (error) {
+      next(error)
+    }
+  })
 
 module.exports = router;
 

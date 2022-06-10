@@ -80,4 +80,18 @@ router.delete("/", isAuthenticated, async (req, res, next) => {
   }
 })
 
+//! GET "api/profile/collections"
+router.get("/collections", isAuthenticated, async (req, res, next) => {
+  const banano = req.payload_id;
+
+  try {
+    //! Aquí es súper importante hacer el populate ya que nuestra relación entre Game y User Model se fundamente en el id del usuario.
+    const response = await GameModel.find().populate(banano);
+    res.json(response);
+    console.log(response)
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;

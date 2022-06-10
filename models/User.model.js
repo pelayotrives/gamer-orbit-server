@@ -37,11 +37,7 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true
-    },
-    collections: {
-      type: Schema.Types.ObjectId,
-      ref: "game"
-    },
+    }
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
